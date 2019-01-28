@@ -1,0 +1,132 @@
+body {
+    font-family: Futura, sans-serif;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.ui-top {
+    position: fixed;
+
+    background-color: black;
+    border-bottom: solid purple 2px;
+    color: white;
+
+    z-index: 1000;
+    text-align: center;
+
+    top: 0;
+}
+
+.time-edit {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 3fr 1fr 1fr 1.5fr;
+
+    width: 16vw;
+    margin-left: calc((100vw - 16vw) / 2);
+}
+
+.ui-top div {
+    overflow: visible;
+}
+
+i {
+    padding: 0.25em 0;
+    cursor: pointer;
+    overflow: visible;
+
+    position: relative;
+
+    user-select: none;
+}
+
+.search {
+    display: grid;
+    grid-template-columns: 5fr 1fr;
+
+    background-color: black;
+    color: white;
+}
+
+.search input {
+    color: white;
+}
+
+.search-wrapper {
+    width: 16vw;
+    left: 0;
+}
+
+.search-results {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+
+    transition: height 0.5s;
+    -webkit-transition: height 0.5s;
+
+    overflow: hidden;
+}
+
+.search-results .closed {
+    height: 0;
+}
+
+.search-results > div {
+    padding-left: 0.5em;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    cursor: pointer;
+}
+
+.search-results > div:hover {
+    background-color: rgba(128, 0, 128, 0.6);
+}
+
+.search > *, .time-edit > * {
+    width: 100%;
+}
+
+i:hover::after {
+    content: '';
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 1.6em;
+    height: 1.6em;
+    background-image: radial-gradient(closest-side, white, transparent);
+    overflow: visible;
+}
+
+div[contenteditable="true"], input {
+    padding: 0.5em 0;
+    outline: none;
+
+    background: transparent;
+    border: none;
+
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+div[contenteditable="true"]:focus, input:focus {
+    color: rgb(180, 180, 180);
+}
+
+.cancel {
+    right: 0;
+    padding: 0 0.5em;
+}
+
+.hidden {
+    display: none;
+}
