@@ -52,7 +52,7 @@ controls.enableKeys = false;
 camera.position.y = 300;
 camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-let planets, _speed = 1, run = false, lock = null;
+let planets, _speed = 1, run = false, lock = null, lockOffset = null;
 
 Object.defineProperty(window, 'speed', {
 	get: function() {
@@ -62,7 +62,7 @@ Object.defineProperty(window, 'speed', {
 		_speed = x;
 		document.querySelector('.speed').innerText = Math.round(_speed * 10000) / 10000;
 	}
-})
+});
 function update(force) {
 	if (run || force == true) {
 		for (let i = 1; i < planets.length; i++) planets[i].update(planets[0], speed * 10000);
@@ -70,14 +70,11 @@ function update(force) {
 
 	if (lock != null) {
 		controls.target.set(lock.group.position.x, lock.group.position.y, lock.group.position.z);
-		// controls.enableZoom = false;
 
-		camera.position.x = lock.group.position.x * 1.1;
-		camera.position.y = lock.group.position.y + 10;
-		camera.position.z = lock.group.position.z * 1.1;
+		const now = Date.now() * 0.0002;
+		const radius = lock.graphicalRadius * 2.5;
 
-		// // console.log(lock.group.position, camera.position)
-		// // camera.position.x += 
+		camera.position.set(lock.group.position.x + (Math.sin(now) * radius), lock.group.position.y + (radius * 0.7), lock.group.position.z + (Math.cos(now) * radius));
 		controls.update();
 	}
 
@@ -164,12 +161,12 @@ xhr.send();
 
 function open(id) {
 	lock = planets[id];
-	controls.enableZoom = false;
+	controls.enabled = false;
 
 	cancel = function() {
 		lock = null;
 		close = null;
-		controls.enableZoom = true;
+		controls.enabled = true;
 	};
 
 	document.querySelector('.cancel').classList.remove('hidden');
@@ -184,7 +181,7 @@ function doCancel() {
 }
 
 window.addEventListener('keyup', function(event) {
-	if (event.keyCode == 27 || cancel != null) doCancel();
+	if (event.keyCode == 27 && cancel != null) doCancel();
 });
 
 window.addEventListener('click', function(event) {

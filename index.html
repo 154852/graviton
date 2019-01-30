@@ -11,35 +11,36 @@
         <script src="https://threejs.org//examples/js/controls/OrbitControls.js"></script>
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,500" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.3.0/fuse.min.js"></script>
 
         <link rel="stylesheet" href="index.css" />
     </head>
     <body>
         <div class="time-edit ui-top">
-            <div onclick="speed -= 1" title="Slow down time by one unit">
+            <div onclick="ui.speed -= 1" title="Slow down time by one unit">
                 <i class="material-icons">fast_rewind</i>
             </div>
-            <div onclick="speed -= 0.2" title="Slow down time by a fifth of a unit">
+            <div onclick="ui.speed -= 0.2" title="Slow down time by a fifth of a unit">
                 <i class="material-icons" style="transform: rotate(180deg)">play_arrow</i>
             </div>
-            <div onclick="run = !run; this.children[0].innerText = run? 'pause_circle_outline':'play_circle_outline'" title="Play / Pause">
+            <div onclick="ui.run = !ui.run; this.children[0].innerText = ui.run? 'pause_circle_outline':'play_circle_outline'" title="Play / Pause">
                 <i class="material-icons">play_circle_outline</i>
             </div>
-            <div class="speed" contenteditable="true" oninput="_speed = parseFloat(this.innerText)">1</div>
-            <div onclick="update(true)" title="Single Step">
+            <div class="speed" contenteditable="true" oninput="ui._speed = parseFloat(this.innerText)">1</div>
+            <div onclick="ui.doPhysicsUpdate(1)" title="Single Step">
                 <i class="material-icons">redo</i>
             </div>
-            <div onclick="speed += 0.2" title="Speed up time by a fifth of a unit">
+            <div onclick="ui.speed += 0.2" title="Speed up time by a fifth of a unit">
                 <i class="material-icons">play_arrow</i>
             </div>
-            <div onclick="speed += 1" title="Speed up time by one unit">
+            <div onclick="ui.speed += 1" title="Speed up time by one unit">
                 <i class="material-icons">fast_forward</i>
             </div>
         </div>
 
-        <div class="search-wrapper ui-top">
-            <div class="search">
+        <div class="settings-wrapper ui-top">
+            <div class="grid">
                 <input style="padding: 0 0; padding-left: 0.5em; overflow: scroll" />
                 <div style="text-align: center">
                     <i class="material-icons">search</i>
@@ -49,8 +50,14 @@
         </div>
 
         <div class="cancel ui-top hidden">
-            <i class="material-icons" onclick="doCancel();">close</i>
+            <i class="material-icons" onclick="ui.doCancel();">close</i>
+        </div>
+
+        <div class="ui-bottom desc hidden">
+            <h2 class="center-text" style="margin: 0.5em 0;"></h2>
+            <hr />
+            <table></table>
         </div>
     </body>
-    <script src="main.js"></script>
+    <script src="index.js"></script>
 </html>

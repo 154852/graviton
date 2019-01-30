@@ -5,9 +5,17 @@
         "radius": 695508,
         "color": "#DB3D11",
         "offsetRadius": 0,
-        "graphicalRadius": 100,
+        "graphicalRadius": 250,
         "light": 1,
-        "path": "sun.jpg"
+        "path": "sun.jpg",
+        "table": [
+            ["Age", "4.6×10<sup>9</sup> years (middle aged)"],
+            ["Solar System Mass", "99.86%"],
+            ["Composition", "Hydrogen (73%), Helium (25%), Oxygen, Carbon, Neon, Iron"],
+            ["Energy Source", "Nuclear fusion of Hydrogen and Helium (600 tonnes of Hydrogen to helium/s)"],
+            ["Light", "3.75×10<sup>28</sup> lumens"],
+            ["Surface Temperature", "5778 K"]
+        ]
     }, {
         "name": "Mercury",
         "density": 13.56,
@@ -15,7 +23,13 @@
         "color": "grey",
         "offsetRadius": 57910000,
         "initialV": 16e+31,
-        "path": "mercury.jpg"
+        "path": "mercury.jpg",
+        "rotSpeed": 3.02555556,
+        "table": [
+            ["Age", "4.50310×<sup>9</sup> years"],
+            ["Surface Temperature", "100 (night) to 700 (day) K"],
+            ["Composition", "70% metals, 30% silicate material"]
+        ]
     }, {
         "name": "Venus",
         "density": 5.24,
@@ -23,7 +37,14 @@
         "color": "red",
         "offsetRadius": 108200000, 
         "initialV": 8e+31,
-        "path": "venus.jpg"
+        "path": "venus.jpg",
+        "rotSpeed": 1.811111,
+        "table": [
+            ["Age", "4.503×<sup>9</sup> years"],
+            ["Surface Temperature", "735 K (mean)"],
+            ["Composition", "Similar to that of earth"],
+            ["Atmosphere", "CO<sub>2</sub> (96%), Nitrogen (3%)"]
+        ]
     }, {
         "name": "Earth",
         "density": 5.51,
@@ -31,7 +52,15 @@
         "color": "blue",
         "offsetRadius": 149600000,
         "initialV": 8.1e+31,
-        "path": "earth.jpg"
+        "path": "earth.jpg",
+        "rotSpeed": -447.04,
+        "table": [
+            ["Age", "4.5×<sup>9</sup> years"],
+            ["Surface Temperature", "288 K (mean)"],
+            ["Composition", "Fe (32.1%), O (30.1%), Si (15.1%), Mg (13.9%), S (2.9%), Ni (1.8%), Ca (1.5%), Al (1.4%)"],
+            ["Atmosphere", "N (78.1%), O (21%), Ar (1%), CO<sub>2</sub> (trace)"],
+            ["Population", "7.53×<sup>9</sup>"]
+        ]
     }, {
         "name": "Mars",
         "density": 3.93,
@@ -39,7 +68,8 @@
         "color": "green",
         "offsetRadius": 227900000,
         "initialV": 2e+31,
-        "path": "mars.jpg"
+        "path": "mars.jpg",
+        "rotSpeed": 241.172222
     }, {
         "name": "Jupiter",
         "density": 1.33,
@@ -47,7 +77,8 @@
         "color": "grey",
         "offsetRadius": 778500000,
         "initialV": 56.6e+31,
-        "path": "jupiter.jpg"
+        "path": "jupiter.jpg",
+        "rotSpeed": 447.04
     }, {
         "name": "Saturn",
         "density": 0.67,
@@ -55,7 +86,8 @@
         "color": "#5F583E",
         "offsetRadius": 1434000000,
         "initialV": 23e+31,
-        "path": "saturn.jpg"
+        "path": "saturn.jpg",
+        "rotSpeed": 9722.2222
     }, {
         "name": "Uranus",
         "density": 1.27,
@@ -63,7 +95,8 @@
         "color": "#BCE1E7",
         "offsetRadius": 2871000000,
         "initialV": 6.5e+31,
-        "path": "uranus.jpg"
+        "path": "uranus.jpg",
+        "rotSpeed": 2590
     }, {
         "name": "Neptune",
         "density": 1.64,
@@ -71,7 +104,8 @@
         "color": "#4D7FFF",
         "offsetRadius": 4495000000,
         "initialV": 5.6e+31,
-        "path": "neptune.jpg"
+        "path": "neptune.jpg",
+        "rotSpeed": 2680
     }, {
         "name": "Pluto",
         "density": 1.88,
@@ -79,6 +113,7 @@
         "color": "white",
         "offsetRadius": 5906292480,
         "initialV": 4.5e+29,
-        "path": "pluto.jpg"
+        "path": "pluto.jpg",
+        "rotSpeed": 13.105556
     }
 ]

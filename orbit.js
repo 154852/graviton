@@ -104,14 +104,20 @@ class Planet {
         this.name = jsonElement.name;
         this.density = jsonElement.density * 1000; // kg/m^3
         this.radius = jsonElement.radius * 1000; // m
-        this.color = jsonElement.color;
         this.graphicalRadius = jsonElement.graphicalRadius || (this.radius / 1000000);
         this.light = jsonElement.light || 0;
         this.path = jsonElement.path;
         this.id = id;
+        this.rotationSpeed = jsonElement.rotSpeed || 0;
+        this.table = jsonElement.table || [];
 
         this.currentPosition = jsonElement.position || new Vector3(jsonElement.offsetRadius * 1000, 0, 0);
         this.velocity = jsonElement.velocity || new Vector3(0, 0, 0);
+
+        this.table.push(["Density", this.density.toString() + 'kg/m<sup>3</sup>']);
+        this.table.push(["Radius", this.radius.toString() + 'm']);
+        this.table.push(["Rotation Speed", Math.abs(this.rotationSpeed).toString() + 'm/s']);
+        this.table.push(["Distance to Sun", this.currentPosition.magnitude().toString() + 'm']);
 
         if (sun) this.initialVelocity(this.currentPosition.magnitude(), sun);
 
@@ -128,26 +134,14 @@ class Planet {
 
         const geom = new THREE.IcosahedronGeometry(this.graphicalRadius, 3);
 
-        const matData = {
-            flatShading: true
-        };
+        const matData = {};
+        if (this.path != null) matData.map = new THREE.TextureLoader().load('res/planets/' + this.path);
 
-        if (this.path != null) {
-            matData.map = new THREE.TextureLoader().load('res/planets/' + this.path);
-            this.color *= 0.6;
-        }
-
-        if (this.light != 0) {
-            this.group.add(new THREE.PointLight(0xffffff, 1.5, 4000, 2));
-        }
-
-        matData.emissive = new THREE.Color(this.color);
+        if (this.light != 0) this.group.add(new THREE.PointLight(0xffffff, 1.5, 4000, 2));
 
         const mat = new THREE.MeshPhongMaterial(matData);
-
         this.group.add(new THREE.Mesh(geom, mat));
-
-        this.updateGraphicalPosition();
+        this.updateGraphicalPosition(0);
 
         return this.group;
     }
@@ -194,12 +188,15 @@ class Planet {
         this.velocity = this.velocity.add(this.getNewVelocity(planet, time));
 
         this.currentPosition = this.currentPosition.add(this.velocity.mulScalar(time));
-        this.updateGraphicalPosition();
+
+        this.updateGraphicalPosition(time);
     }
 
-    updateGraphicalPosition() {
+    updateGraphicalPosition(time) {
         const vector = this.currentPosition.divScalar(Planet.scale / 2000);
         this.group.position.set(vector.x, vector.z, vector.y);
+
+        this.group.rotation.y += ((this.rotationSpeed * time) / (this.radius * Math.PI * 2)) * 360;
     }
 
     kineticEnergy() { // checked
@@ -224,4 +221,4 @@ class Planet {
         return difference.mulScalar(time * (-Math.G * planet.mass() * (((difference.x ** 2) + (difference.y ** 2) + (difference.z ** 2)) ** -1.5)));
     }
 }
-Planet.scale = 590629248000;
+Planet.scale = 400629248000;
