@@ -10,7 +10,7 @@ class UniverseScene {
         this.skyBox = UniverseScene.getSkyBox(null, UniverseScene.scale);
         this.scene.add(this.skyBox);
         this.scene.fog = new THREE.Fog(0x000000,  UniverseScene.scale * 0.5,  UniverseScene.scale * 1.5);
-        this.scene.add(new THREE.AmbientLight(0x404040));
+        this.scene.add(new THREE.AmbientLight(0x606060));
 
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.controls.enableKeys = false;
@@ -19,20 +19,20 @@ class UniverseScene {
         this.camera.position.x = -400;
         this.camera.lookAt(0, 0, 0);
 
-        for (let i = 0; i < 30; i++) {
-            const light = new THREE.PointLight(0xffffff, 0.5, 2000, 1);
-            light.position.set(
-                (Math.random() - 0.5) * UniverseScene.scale,
-                (Math.random() - 0.5) * UniverseScene.scale,
-                (Math.random() - 0.5) * UniverseScene.scale
-            );
+        // for (let i = 0; i < 30; i++) {
+        //     const light = new THREE.PointLight(0xffffff, 0.5, 2000, 1);
+        //     light.position.set(
+        //         (Math.random() - 0.5) * UniverseScene.scale,
+        //         (Math.random() - 0.5) * UniverseScene.scale,
+        //         (Math.random() - 0.5) * UniverseScene.scale
+        //     );
         
-            const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), new THREE.MeshBasicMaterial({ color: 0xffffff }));
-            sphere.position.set(light.position.x, light.position.y, light.position.z);
+        //     const sphere = new THREE.Mesh(new THREE.IcosahedronGeometry(5, 0), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+        //     sphere.position.set(light.position.x, light.position.y, light.position.z);
         
-            this.scene.add(sphere);
-            this.scene.add(light);
-        }
+        //     this.scene.add(sphere);
+        //     this.scene.add(light);
+        // }
     }
 
     add(planets) {

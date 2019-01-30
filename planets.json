@@ -26,7 +26,7 @@
         "path": "mercury.jpg",
         "rotSpeed": 3.02555556,
         "table": [
-            ["Age", "4.50310×<sup>9</sup> years"],
+            ["Age", "4.50310×10<sup>9</sup> years"],
             ["Surface Temperature", "100 (night) to 700 (day) K"],
             ["Composition", "70% metals, 30% silicate material"]
         ]
@@ -40,7 +40,7 @@
         "path": "venus.jpg",
         "rotSpeed": 1.811111,
         "table": [
-            ["Age", "4.503×<sup>9</sup> years"],
+            ["Age", "4.503×10<sup>9</sup> years"],
             ["Surface Temperature", "735 K (mean)"],
             ["Composition", "Similar to that of earth"],
             ["Atmosphere", "CO<sub>2</sub> (96%), Nitrogen (3%)"]
@@ -55,11 +55,11 @@
         "path": "earth.jpg",
         "rotSpeed": -447.04,
         "table": [
-            ["Age", "4.5×<sup>9</sup> years"],
+            ["Age", "4.5×10<sup>9</sup> years"],
             ["Surface Temperature", "288 K (mean)"],
             ["Composition", "Fe (32.1%), O (30.1%), Si (15.1%), Mg (13.9%), S (2.9%), Ni (1.8%), Ca (1.5%), Al (1.4%)"],
             ["Atmosphere", "N (78.1%), O (21%), Ar (1%), CO<sub>2</sub> (trace)"],
-            ["Population", "7.53×<sup>9</sup>"]
+            ["Population", "7.53×10<sup>9</sup>"]
         ]
     }, {
         "name": "Mars",
@@ -69,7 +69,14 @@
         "offsetRadius": 227900000,
         "initialV": 2e+31,
         "path": "mars.jpg",
-        "rotSpeed": 241.172222
+        "rotSpeed": 241.172222,
+        "table": [
+            ["Age", "4.603×10<sup>9</sup> years"],
+            ["Surface Temperature", "210 K (mean)"],
+            ["Composition", "Si, O, Fe, Mg, Al, Ca, K"],
+            ["Atmosphere", "CO<sub>2</sub> (95.9%), Ar (2%), N<sub>2</sub> (1.9%), O<sub>2</sub> (0.14%), CO (0.06%)"],
+            ["Population", "7 (Rovers)"]
+        ]
     }, {
         "name": "Jupiter",
         "density": 1.33,
@@ -78,7 +85,11 @@
         "offsetRadius": 778500000,
         "initialV": 56.6e+31,
         "path": "jupiter.jpg",
-        "rotSpeed": 447.04
+        "rotSpeed": 447.04,
+        "table": [
+            ["Age", "4.503×10<sup>9</sup> years"],
+            ["Surface Temperature", "165 K (mean)"]
+        ]
     }, {
         "name": "Saturn",
         "density": 0.67,
