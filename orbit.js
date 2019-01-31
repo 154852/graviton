@@ -97,10 +97,10 @@ class Vector3 {
  */
 class Planet {
     /**
-     * @param {{name: String, density: Number, radius: Number, color: String, offsetRadius: Number, graphicalRadius: Number, initialV: Number, light?: Number}} jsonElement JSON data for planet
+     * @param {{name: String, density: Number, radius: Number, offsetRadius: Number, graphicalRadius: Number, initialV: Number, light?: Number}} jsonElement JSON data for planet
      * @param {Planet?} sun Sun
      */
-    constructor(jsonElement, id, sun) {
+    constructor(jsonElement, id, sun, detail) {
         this.name = jsonElement.name;
         this.density = jsonElement.density * 1000; // kg/m^3
         this.radius = jsonElement.radius * 1000; // m
@@ -110,14 +110,19 @@ class Planet {
         this.id = id;
         this.rotationSpeed = jsonElement.rotSpeed || 0;
         this.table = jsonElement.table || [];
+        this.detail = detail || 3;
 
         this.currentPosition = jsonElement.position || new Vector3(jsonElement.offsetRadius * 1000, 0, 0);
         this.velocity = jsonElement.velocity || new Vector3(0, 0, 0);
 
+        this.table.splice(0, 0, ["Distance to Sun", this.currentPosition.magnitude().toString() + 'm']);
+        this.table.splice(1, 0, ["Position", `{${this.currentPosition.x}, ${this.currentPosition.y}, ${this.currentPosition.z}}`]);
+        this.table.splice(2, 0, ["Velocity", `{${this.velocity.x}, ${this.velocity.y}, ${this.velocity.z}}`]);
+        this.table.splice(3, 0, ["Energy", '[null]']);
+
         this.table.push(["Density", this.density.toString() + 'kg/m<sup>3</sup>']);
         this.table.push(["Radius", this.radius.toString() + 'm']);
         this.table.push(["Rotation Speed", Math.abs(this.rotationSpeed).toString() + 'm/s']);
-        this.table.push(["Distance to Sun", this.currentPosition.magnitude().toString() + 'm']);
 
         if (sun) this.initialVelocity(this.currentPosition.magnitude(), sun);
 
@@ -132,16 +137,20 @@ class Planet {
     getMesh() {
         this.group = new THREE.Group();
 
-        const geom = new THREE.IcosahedronGeometry(this.graphicalRadius, 3);
+        const geom = new THREE.IcosahedronGeometry(this.graphicalRadius, this.detail);
 
-        const matData = {};
-        if (this.path != null) matData.map = new THREE.TextureLoader().load('res/planets/' + this.path);
+        const matData = {
+            flatShading: this.detail < 2
+        };
+
+        if (this.path.constructor == String) matData.map = new THREE.TextureLoader().load('res/planets/' + this.path);
+        else matData.emissive = this.path;
 
         if (this.light != 0) this.group.add(new THREE.PointLight(0xffffff, 1.5, 4000, 2));
 
         const mat = new THREE.MeshPhongMaterial(matData);
         this.group.add(new THREE.Mesh(geom, mat));
-        this.updateGraphicalPosition(0);
+        this.updateGraphicalPosition(null, 0, null);
 
         return this.group;
     }
@@ -184,19 +193,25 @@ class Planet {
      * Runs update against given planet
      * @param {Planet} planet Other planet
      */
-    update(planet, time) {
+    update(planet, time, doRotate) {
         this.velocity = this.velocity.add(this.getNewVelocity(planet, time));
 
         this.currentPosition = this.currentPosition.add(this.velocity.mulScalar(time));
 
-        this.updateGraphicalPosition(time);
+        this.updateGraphicalPosition(planet, time, doRotate);
     }
 
-    updateGraphicalPosition(time) {
-        const vector = this.currentPosition.divScalar(Planet.scale / 2000);
+    updateGraphicalPosition(planet, time, doRotate) {
+        const vector = this.currentPosition.divScalar(Planet.scale);
         this.group.position.set(vector.x, vector.z, vector.y);
 
-        this.group.rotation.y += ((this.rotationSpeed * time) / (this.radius * Math.PI * 2)) * 360;
+        if (doRotate) this.group.rotation.y += ((this.rotationSpeed * time) / (this.radius * Math.PI * 2)) * 360;
+
+        this.table[0][1] = this.currentPosition.magnitude().toString() + 'm';
+        this.table[1][1] = `{${this.currentPosition.x}, ${this.currentPosition.y}, ${this.currentPosition.z}}`;
+        this.table[2][1] = `{${this.velocity.x}, ${this.velocity.y}, ${this.velocity.z}}`;
+        
+        if (planet) this.table[3][1] = this.energy(planet) + 'J';
     }
 
     kineticEnergy() { // checked
@@ -221,4 +236,5 @@ class Planet {
         return difference.mulScalar(time * (-Math.G * planet.mass() * (((difference.x ** 2) + (difference.y ** 2) + (difference.z ** 2)) ** -1.5)));
     }
 }
-Planet.scale = 400629248000;
+Planet.scale = 200314624;
+Planet.AU = 149600000000;

@@ -58,7 +58,7 @@ i {
 
 .settings-wrapper .grid {
     display: grid;
-    grid-template-columns: 5fr 1fr;
+    grid-template-columns: 12vw 3vw 3vw 3vw;
 
     background-color: black;
     color: white;
@@ -69,15 +69,14 @@ i {
 }
 
 .settings-wrapper {
-    width: 16vw;
     left: 0;
 }
 
-.settings-wrapper:focus-within .search-results, .settings-wrapper:hover .search-results{
-    display: block;
+.settings-wrapper:focus-within .search-results, .settings-wrapper:hover .search-results, .not-closed {
+    display: block !important;
 }
 
-.search-results {
+.search-results, .settings-main {
     display: none;
     
     background-color: rgba(0, 0, 0, 0.5);
@@ -87,10 +86,6 @@ i {
     -webkit-transition: height 0.5s;
 
     overflow: hidden;
-}
-
-.search-results .closed {
-    height: 0;
 }
 
 .search-results > div {
@@ -132,6 +127,7 @@ div[contenteditable="true"], input {
     font-size: inherit;
     font-family: inherit;
     font-weight: inherit;
+    color: inherit;
 
     transition: 0.5s;
     -webkit-transition: 0.5s;
@@ -179,4 +175,94 @@ div[contenteditable="true"]:focus, input:focus {
     margin: 0 auto;
     height: 1px;
     border: none;
+}
+
+.check-bg {
+    cursor: pointer;
+    text-align: left;
+    margin: 0;
+    padding: 0.5em 0;
+    padding-left: 1em;
+}
+
+.check-bg:hover {
+    background-color: rgba(128, 0, 128, 0.3);
+}
+
+.check-bg.checked {
+    background-color: rgba(128, 0, 128, 0.6);
+}
+
+hr {
+    height: 1px;
+    background-color: white;
+    width: 100%;
+    border: none;
+}
+
+.add-ui {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    width: auto;
+    padding: 1em 1em;
+    width: 90%;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    border-top: solid purple 2px;
+    color: white;
+
+    z-index: 1000;
+    text-align: center;
+}
+
+.add-ui .grid {
+    display: grid;
+    grid-template-areas: 'pt pt pt pt pt pt' 
+                        'x x y y z z'
+                        'vt vt vt vt vt vt'
+                        'vx vx vy vy vz vz'
+                        'dt dt dt dt dt dt'
+                        'd d d r r r'
+                        'nt nt nt nt nt nt'
+                        'n n n n n n';
+    grid-column-gap: 1.5em;
+}
+
+.add-ui .grid h2 {
+    margin-bottom: 0;
+    margin-top: 2em;
+}
+
+.add-ui input {
+    border-bottom: solid purple 2px;
+    width: auto;
+    padding: 0 0; 
+    padding-left: 0.5em;
+    overflow: scroll;
+}
+
+.add-ui .button {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: solid purple 2px;
+
+    width: 20%;
+    margin: 0 auto;
+
+    padding: 0.3em 0.5em;
+    cursor: pointer;
+
+    margin-top: 1em;
+}
+
+.add-ui .button.big {
+    width: 25%;
+    padding: 0.7em 1em;
+}
+
+.add-ui .button:hover {
+    background-color: rgba(128, 0, 128, 0.3);   
 }

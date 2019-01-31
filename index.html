@@ -45,8 +45,59 @@
                 <div style="text-align: center">
                     <i class="material-icons">search</i>
                 </div>
+                <i class="material-icons" onclick="document.querySelector('.settings-main').classList.toggle('not-closed');">settings</i>
+                <i class="material-icons" onclick="ui.doCancel(); ui.addPanel();">add</i>
             </div>
-            <div class="search-results closed"></div>
+            <div class="search-results"></div>
+            <div class="settings-main">
+                <p class="check-bg checked" onclick="ui.universeScene.additionalLights.visible = !ui.universeScene.additionalLights.visible;">Point Stars</p>
+                <p class="check-bg checked" onclick="ui.planetHandler.doRotate = !ui.planetHandler.doRotate;">Planet Rotation</p>
+                <p class="check-bg" onclick="window.location.assign(window.location.href.indexOf('?') == -1? '?absD=true':(window.location.href + '&absD=true'));">True Distances</p>
+                <p class="check-bg" onclick="window.location.assign(window.location.href.indexOf('?') == -1? '?absS=true':(window.location.href + '&absS=true'));;">True Sizes</p>
+            </div>
+        </div>
+
+        <div class="add-ui hidden">
+            <h1 style="text-align: center; grid-area: t; margin-bottom: 0.3em">Add an Asteroid</h1>            
+
+            <div class="grid">
+                <h2 style="grid-area: pt; margin-top: 0.5em">Position</h2>
+                <div style="grid-area: x">
+                    X: <input type="number" name="x" value="0" />au
+                </div>
+                <div style="grid-area: y">
+                    Y: <input type="number" name="y" value="0" />au
+                </div>
+                <div style="grid-area: z">
+                    Z: <input type="number" name="z" value="0" />au
+                </div>
+
+                <h2 style="grid-area: vt">Velocity</h2>
+                <div style="grid-area: vx">
+                    X: <input type="number" name="vx" value="0" /><sup>m</sup>/<sub>s</sub>
+                </div>
+                <div style="grid-area: vy">
+                    Y: <input type="number" name="vy" value="0" /><sup>m</sup>/<sub>s</sub>
+                </div>
+                <div style="grid-area: vz">
+                    Z: <input type="number" name="vz" value="0" /><sup>m</sup>/<sub>s</sub>
+                </div>
+
+                <h2 style="grid-area: dt">Mass</h2>
+                <div style="grid-area: d">
+                    Density: <input type="number" name="d" value="1" /><sup>g</sup>/<sub>cm<sup>3</sup></sub>
+                </div>
+                <div style="grid-area: r">
+                    AVG Radius: <input type="number" name="r" value="20000" />m
+                </div>
+
+                <h2 style="grid-area: nt">Name</h2>
+                <div style="grid-area: n">
+                    <input type="text" name="n" value="Asteroid#unnamed" style="text-align: center; width: 60%" />
+                </div>
+            </div>
+
+            <div class="button big" onclick="ui.create();">Create</div>
         </div>
 
         <div class="cancel ui-top hidden">
