@@ -214,6 +214,14 @@ class UI {
                 element.classList.toggle('checked');
             });
         });
+
+        window.addEventListener('resize', function() {
+            that.universeScene.camera.aspect = window.innerWidth / window.innerHeight;
+            that.universeScene.camera.updateProjectionMatrix();
+
+            that.universeScene.renderer.setSize(window.innerWidth, window.innerHeight);
+
+        }, false);
     }
 
     get speed() {
@@ -327,6 +335,9 @@ class UI {
         }, this.planetHandler.planets.length, null, 1);
         this.planetHandler.planets.push(planet);
         this.universeScene.add([planet]);
+
+        this.doCancel();
+        this.open(planet.id);
     }
 }
 

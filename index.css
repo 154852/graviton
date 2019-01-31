@@ -38,8 +38,8 @@ canvas {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 3fr 1fr 1fr 1.5fr;
 
-    width: 16vw;
-    margin-left: calc((100vw - 16vw) / 2);
+    width: 20em;
+    margin-left: calc((100vw - 20vw) / 2);
 }
 
 .ui-top, .ui-bottom div {
@@ -58,7 +58,8 @@ i {
 
 .settings-wrapper .grid {
     display: grid;
-    grid-template-columns: 12vw 3vw 3vw 3vw;
+    grid-template-columns: 5fr 1fr 1fr 1fr;
+    width: 20em;
 
     background-color: black;
     color: white;
@@ -154,6 +155,9 @@ div[contenteditable="true"]:focus, input:focus {
     left: 0;
     width: 60vw;
     padding: 0 1em;
+    top: 70%;
+    height: 30vh;
+    overflow-y: scroll;
 }
 
 .desc table {
@@ -265,4 +269,14 @@ hr {
 
 .add-ui .button:hover {
     background-color: rgba(128, 0, 128, 0.3);   
+}
+
+@media only screen and (max-width: 800px) {
+    .add-ui {
+        font-size: 60%;
+    }
+
+    .desc {
+        width: calc(100vw - 1.5em);
+    }
 }
