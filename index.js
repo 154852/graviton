@@ -26,6 +26,9 @@ class UniverseScene {
         this.additionalLights = new THREE.Group();
         this.scene.add(this.additionalLights);
 
+        this.additionalLights.visible = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (!this.additionalLights.visible) document.querySelector('.point-stars').classList.remove('checked');
+
         for (let i = 0; i < 30; i++) {
             const light = new THREE.PointLight(0xffffff, 0.5, 2000, 1);
             light.position.set(
