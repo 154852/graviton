@@ -1,4 +1,4 @@
-Math.G = 6.6742e-11;
+Math.G = 6.6742e-11; // Universal gravitational constant
 
 class Vector3 {
     /**
@@ -98,7 +98,9 @@ class Vector3 {
 class Planet {
     /**
      * @param {{name: String, density: Number, radius: Number, offsetRadius: Number, graphicalRadius: Number, initialV: Number, light?: Number}} jsonElement JSON data for planet
+     * @param {Number} id The planet ID (incremential)
      * @param {Planet?} sun Sun
+     * @param {Number?} detail The icosahedron detail
      */
     constructor(jsonElement, id, sun, detail) {
         this.name = jsonElement.name;
@@ -124,16 +126,25 @@ class Planet {
         this.table.push(["Radius", this.radius.toString() + 'm']);
         this.table.push(["Rotation Speed", Math.abs(this.rotationSpeed).toString() + 'm/s']);
 
-        if (sun) this.initialVelocity(this.currentPosition.magnitude(), sun);
+        if (sun) this.velocity.y = this.initialVelocity(this.currentPosition.magnitude(), sun);
 
         this.group = null;
     }
 
-    initialVelocity(distance, planet2) { // checked
-        const mag = Math.sqrt((Math.G * (planet2.mass() + this.mass())) / distance);
-        this.velocity.y = mag;
+    /**
+     * Gets the inital velocity for this planet
+     * @param {Number} distance Distance between the orbiting bodies
+     * @param {Planet} planet2 The parent body
+     * @returns {Number}
+     */
+    initialVelocity(distance, planet2) {
+        return Math.sqrt((Math.G * (planet2.mass() + this.mass())) / distance);
     }
 
+    /**
+     * Gets a graphical mesh of the planet
+     * @returns {THREE.Mesh}
+     */
     getMesh() {
         this.group = new THREE.Group();
 
@@ -167,7 +178,7 @@ class Planet {
      * Calculates the mass of the planet
      * @returns {Number} The planets mass in kg
      */
-    mass() {  // checked (2)
+    mass() {  
         return this.density * this.volume();
     }
 
@@ -175,7 +186,7 @@ class Planet {
      * Calculates the volume of the planet
      * @returns {Number} The planets volume in m^3
      */
-    volume() { // checked (2)
+    volume() { 
         return (4 / 3) * Math.PI * (this.radius ** 3);
     }
 
@@ -185,7 +196,7 @@ class Planet {
      * @param {Number} radius Distance between planets
      * @return {Number} The force in newtons
      */
-    forceOn(planet, radius) { // checked
+    forceOn(planet, radius) { 
         return -Math.G * this.mass() * planet.mass() / radius ** 2;
     }
 
@@ -201,6 +212,12 @@ class Planet {
         this.updateGraphicalPosition(planet, time, doRotate);
     }
 
+    /**
+     * Updates the graphics of the planet
+     * @param {Planet} planet Parent planet
+     * @param {Number} time Time delta
+     * @param {Boolean} doRotate Should do planet rotation
+     */
     updateGraphicalPosition(planet, time, doRotate) {
         const vector = this.currentPosition.divScalar(Planet.scale);
         this.group.position.set(vector.x, vector.z, vector.y);
@@ -214,15 +231,29 @@ class Planet {
         if (planet) this.table[3][1] = this.energy(planet) + 'J';
     }
 
-    kineticEnergy() { // checked
+    /**
+     * Calculates the kinetic energy in the planets movement
+     * @returns {Number}
+     */
+    kineticEnergy() { 
         return 0.5 * this.mass() * this.velocity.magnitude();
     }
 
-    gravitationalPotentialEnergy(planet) { // checked
+    /**
+     * Calculates the gravitational potential energy in the planet
+     * @param {Planet} planet The parent body
+     * @returns {Number}
+     */
+    gravitationalPotentialEnergy(planet) { 
         return -((Math.G * planet.mass() * this.mass()) / this.position().magnitude());
     }
 
-    energy(planet) { // checked
+    /**
+     * Calculates the total energy in the planet
+     * @param {Planet} planet The parent body
+     * @returns {Number}
+     */
+    energy(planet) { 
         return this.kineticEnergy() + this.gravitationalPotentialEnergy(planet);
     }
 
@@ -236,5 +267,5 @@ class Planet {
         return difference.mulScalar(time * (-Math.G * planet.mass() * (((difference.x ** 2) + (difference.y ** 2) + (difference.z ** 2)) ** -1.5)));
     }
 }
-Planet.scale = 200314624;
-Planet.AU = 149600000000;
+Planet.scale = 200314624; // Graphical scaling
+Planet.AU = 149600000000; // Distance in M of 1 astronomical unit
