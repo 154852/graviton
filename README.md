@@ -1,3 +1,3 @@
 # graviton
 
-A simple, Newtonian, one body gravitational simulation of our simulation.
+A simple, 3D, Newtonian, one body gravitational simulation of our simulation.
